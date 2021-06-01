@@ -76,7 +76,7 @@ export class GamesService {
     }
   }
 
-  @Cron('* * * * * *')
+  @Cron('0 */12 * * *')
   private async applyDiscount(): Promise<void> {
     await Promise.all([
       this.gameRepository
@@ -87,6 +87,7 @@ export class GamesService {
       this.gameRepository
         .createQueryBuilder('game')
         .update()
+        .where({ IsDiscountApplied: false })
         .where({
           releaseDate: Between(
             "NOW() - INTERVAL '18 month'",
@@ -96,7 +97,7 @@ export class GamesService {
         .set({ price: () => 'price * 0.2' })
         .execute(),
     ]).then((res) => {
-      console.log(res);
+      this.logger.log(res);
     });
   }
 }

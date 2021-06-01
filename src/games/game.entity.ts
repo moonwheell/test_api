@@ -32,6 +32,9 @@ export class Game extends BaseEntity {
   @CreateDateColumn({ name: 'release_date' })
   releaseDate: Date;
 
+  @Column({ default: false })
+  IsDiscountApplied: boolean;
+
   @CreateDateColumn({
     name: 'created_at',
     type: 'timestamp',
