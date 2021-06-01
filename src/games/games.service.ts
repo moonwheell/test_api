@@ -95,6 +95,7 @@ export class GamesService {
           ),
         })
         .set({ price: () => 'price * 0.2' })
+        .set({ IsDiscountApplied: false })
         .execute(),
     ]).then((res) => {
       this.logger.log(res);
